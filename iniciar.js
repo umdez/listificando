@@ -110,8 +110,6 @@ configuracao.load(function(args, opcs) {
   // Chamamos o arquivo principal, ele vai carregar os outros arquivos principais do servidor.
   var principal = require('./fonte/iniciador/principal');
   
-  // {config: configuracao, aplicativo: aplicativo }
-  
   principal.prosseguir(configuracao, aplicativo, function() {
     
     registrador.debug('Carregando o servidor HTTP e HTTPS.');
@@ -131,13 +129,3 @@ configuracao.load(function(args, opcs) {
   });
   
 });
-
-/*
-// Após iniciar uma fonte, é necessário apenas iniciar o serviço desta forma:
-restificando.inicializar({
-  aplicativo: express,
-  sequelize: sequelize
-});
-
-
-*/

@@ -75,11 +75,12 @@ ServicoRest.prototype.carregarServicoRest = function () {
        * @Veja https://github.com/umdez/restificando#readme
        */
       esteObjeto[fonte.nome] = restificando.fonte({
-         modelo: esteObjeto.armazenamento[fonte.nome]               
+         modelo: esteObjeto.armazenamento[fonte.nome]
+      ,  acoes: fonte.acoes         
       ,  estagiosFinais: fonte.estagiosFinais                                  
       ,  sePossuiAssociacoes: fonte.sePossuiAssociacoes || false  
-      ,  busca: { parametro: fonte.parametroPesquisa || 'q' }
-      ,  sorteio: { parametro: fonte.parametroOrdenamento || 'order' } 
+      ,  busca: { parametro: fonte.parametroDeBusca || 'busca' }
+      ,  sorteio: { parametro: fonte.parametroDeSorteio || 'sorteio' } 
       ,  seRealizarPaginacao: fonte.seRealizarPaginacao || false                                                                 
       ,  seRecarregarInstancias: fonte.seRecarregarInstancias  || false
       });
