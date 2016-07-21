@@ -18,12 +18,20 @@
  *  - servidor.portaSSL                  (Obrigatório) A porta ao qual o servidor irá esperar por requisições https.
  *  - servidor.limite                    (Obrigatório) Valor limite do body que é permitido. Mantenha o valor baixo para precaver
  *                                                     contra negação de serviços.
+ *  - servidor.exigirConSegura           (Obrigatório) Se for necessário obrigar uma conexão segura.
  *  - servidor.cors                      (Opcional) Se iremos oferecer o serviço cors.
  *  - servidor.cors.origem               (Obrigatório) O endereço de origem que é permitidos pelo cors. Por questões de segurança, 
- *                                                     utilize * apenas para a fase de desenvolvimento e testes.
- *  - servidor.logger                    (Opcional) O tipo de registro. podendo ser: 'default', 'short', 'tiny', 'dev' 
+ *                                                     utilize *apenas* para a fase de desenvolvimento e testes.
+ *  - servidor.cors.metodos              (Obrigatório) Os métodos de requisição aceitos. 
+ *  - servidor.cors.cabecalhosAceitos    (Obrigatório) Os cabeçalhos aceitos.
+ *  - servidor.cors.cabecalhosExpostos   (Obrigatório) Aqui teremos os cabeçalhos *expostos* para as requisições ao servidor HTTP.
+ *  - servidor.cors.credenciais          (Obrigatório)
+ *  - servidor.registro                  (Opcional) Formatos de registro do morgan. podendo ser: 'default', 'short', 'tiny', 'dev' etc.
  *  - servidor.certificados.chavePrivada (Obrigatório) A chave privada.
  *  - servidor.certificados.certificado  (Obrigatório) O certificado.
+ *
+ * @Diretiva {servidorRest} O nosso servidor Restificando.
+ *  - servidorRest.endereco  (Opcional) O endereço base do serviço restificando.
  */
 module.exports = {
   
@@ -42,19 +50,28 @@ module.exports = {
   
   // Servidor: As configurações para o Express.
   "servidor": {
-    "logger": "dev",                   // Valores permitidos: 'default', 'short', 'tiny', 'dev' 
-    "porta": 81,                       // A porta ao qual o servidor irá escutar por requisições http.
-    "portaSSL": 444,                   // A porta ao qual o servidor irá esperar por requisições https.
-    "limite": "200kb",                 // Limite permitido para o conteúdo body. Lembre-se de manter o limit do body em 
-                                       // '200kb' para nos precaver dos ataques de negação de serviço.
+    "registro": "combined",  // Formatos de registro do morgan. valores permitidos: 'combined', 'common', 'default', 'short', 'tiny', 'dev' etc.
+    "porta": 80,             // A porta ao qual o servidor irá escutar por requisições http.
+    "portaSSL": 443,         // A porta ao qual o servidor irá esperar por requisições https.
+    "limite": "200kb",       // Limite permitido para o conteúdo body. Lembre-se de manter o limit do body em 
+                             // '200kb' para nos precaver dos ataques de negação de serviço.
+    "exigirConSegura": true, // Se for necessário obrigar uma conexão segura.
     "cors": {                         
-      "origem": ["http://localhost", "https://localhost"]  // O endereço de origem que é permitido, utilize * apenas na fase de desenvolvimento e testes, 
-                                                           // por questões de segurança.
+      "origem": ["http://localhost", "https://localhost"],
+      "metodos": ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],  
+      "cabecalhosAceitos": ['Content-Range', 'X-total', 'Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
+      "cabecalhosExpostos": ['Content-Range', 'X-total'], 
+      "credenciais": true
     },
     "certificados": {                      // Certificados utilizados para o servidor https.
       "chavePrivada": "servidorHttps.key", // A chave privada.
       "certificado": "servidorHttps.crt"   // O certificado.
     }
+  },
+  
+  // ServidorRest: As configurações do nosso servidor Restificando.
+  "servidorRest": {
+    "endereco": ""
   }
   
 };

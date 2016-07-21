@@ -18,6 +18,7 @@ var Promessa = require('bluebird');
 var fontes = require('./fontes/indice');
 var registrador = require('../nucleo/registrador')('servicorest');
 var restificando = require('restificando');
+var _ = require('lodash');
 
 /* @Classe ServicoRest().
  *
@@ -25,14 +26,31 @@ var restificando = require('restificando');
  *
  * @Parametro {Objeto} [aplicativo] O nosso aplicativo Express.
  * @Parametro {Objeto} [armazenamento] Contêm o objeto do nosso banco de dados.
+ * @Parametro {Objeto} [configuracao] Contem todas as configurações deste serviço.
  ----------------------------------------------------------------------------------------------------------------------------------------*/
-var ServicoRest = function (aplicativo, armazenamento) {
+var ServicoRest = function (aplicativo, armazenamento, configuracao) {
+
+  if (!aplicativo) {
+    throw new Error('É necessário do servidor express para este serviço Rest.');
+  } else if(!armazenamento) {
+    throw new Error('É necessário do serviço de armazenamento para o serviço Rest.');
+  } else if(!configuracao) {
+    throw new Error('As configurações requisitadas para o serviço Rest não foram informadas.');
+  }
 
   /* @Propriedade {Objeto} [armazenamento] Classe de armazenamento para o Sequelize. */ 
   this.armazenamento = armazenamento; 
    
   /* @Propriedade {Objeto} [aplicativo] Armazena aplicativo express. */  
   this.aplicativo = aplicativo;
+  
+  // Nossas opções padrões
+  _.defaults(configuracao, {         
+     endereco: ''   
+  });
+  
+  /* @Propriedade {Objeto} [minhaConfiguracao] As configurações para este serviço. */
+  this.minhaConfiguracao = configuracao;
 };
 
 /* @Método carregarFontes().
@@ -74,21 +92,35 @@ ServicoRest.prototype.carregarServicoRest = function () {
        *
        * @Veja https://github.com/umdez/restificando#readme
        */
-      esteObjeto[fonte.nome] = restificando.fonte({
-         modelo: esteObjeto.armazenamento[fonte.nome]
-      ,  acoes: fonte.acoes         
-      ,  estagiosFinais: fonte.estagiosFinais                                  
-      ,  sePossuiAssociacoes: fonte.sePossuiAssociacoes || false  
-      ,  busca: { parametro: fonte.parametroDeBusca || 'busca' }
-      ,  sorteio: { parametro: fonte.parametroDeSorteio || 'sorteio' } 
-      ,  seRealizarPaginacao: fonte.seRealizarPaginacao || false                                                                 
-      ,  seRecarregarInstancias: fonte.seRecarregarInstancias  || false
+      
+      _.defaults(fonte, {         
+         acoes: ['criar', 'listar', 'ler', 'atualizar', 'deletar']
+      ,  sePossuiAssociacoes: false  
+      ,  seRealizarPaginacao: false                 
+      ,  seRecarregarInstancias: false            
+      ,  excluirAtributos: []            
+      ,  metodoDeAtualizacao: 'POST'
+      ,  estagiosFinais: false
+      ,  incluir: []
+      ,  modelo: esteObjeto.armazenamento[fonte.nome]
       });
       
-      // Acrescentamos aqui a nossa fonte os seus controladores.
+      _.defaultsDeep(fonte, {
+        busca: {
+          parametro: 'busc'
+        },
+        sorteio: {
+          parametro: 'sort'
+        }
+      });
+      
+      // Carregamos as fontes deste determinado modelo.
+      esteObjeto[fonte.nome] = restificando.fonte(fonte);
+      
+      // Acrescentamos aqui à nossa fonte os seus controladores.
       if (fonte.controladores){
-        //var ponteRest = fonte.controladores(esteObjeto.utilitarios);
-        //esteObjeto[fonte.nome].usar(ponteRest);
+        var osControladoresUsados = fonte.controladores();
+        esteObjeto[fonte.nome].usar(osControladoresUsados);
       }
       
     } else {
@@ -116,7 +148,8 @@ ServicoRest.prototype.iniciar = function () {
     // Inicia o serviço REST Restificando.
     restificando.inicializar({
       aplicativo: esteObjeto.aplicativo,             // Aplicativo Express.
-      sequelize: esteObjeto.armazenamento.sequelize  // Nosso ORM Sequelize.
+      sequelize: esteObjeto.armazenamento.sequelize, // Nosso ORM Sequelize.
+      base: esteObjeto.minhaConfiguracao.endereco    // Endereço base do serviço. <umdez> Não está funcionando.
     });
     
     // Carregamos aqui as nossas fontes.

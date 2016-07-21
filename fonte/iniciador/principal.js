@@ -37,7 +37,7 @@ exports.prosseguir = function(configuracao, aplicativo, pronto) {
   })
   .then(function () {
     // Para cada modelo de tabela nós carregamos as rotas RESTFUL.
-    return esteObjeto.servicoRest.carregar(aplicativo, esteObjeto.arm);
+    return esteObjeto.servicoRest.carregar(aplicativo, esteObjeto.arm, configuracao);
   })
   .then(function () {
     // parece que tudo ocorreu bem

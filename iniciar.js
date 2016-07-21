@@ -13,35 +13,24 @@
 var sistemaDeArquivo = require('fs');
 var pasta = require('path');
 var configuracao = require('jsconfig');
-var pastaDeConfiguracaoPadrao = pasta.join(__dirname, "/configuracao/configuracao.js");
+var pastaDeConfiguracaoPadrao = pasta.join(__dirname, '/configuracao/configuracao.js');
 var http = require('http');
 var https = require('https');
-var morgan = require('morgan');
+var morgan = require('morgan');  // Oferece registro para as requisições http do express
 var restificando = require('restificando');
 var express = require('express');
 var sequelize = require('sequelize');
 var registrador = require('./fonte/nucleo/registrador')('iniciar');  // Carregamos o nosso registrador
+var ambiente = require('./configuracao/ambiente');  // Carregador das variaveis do ambiente
+var entradas = require('./configuracao/entradas');  // Carregador das entradas na linha de comando
 
-// Parametros do ambiente
-configuracao.set('env', {
-  DOMAIN: 'domain',
-  PORT: ['port', parseInt],
-  SSLPORT: ['sslPort', parseInt]
-});
+// Aqui nós iniciamos as variaveis do ambiente.
+ambiente.iniciar(configuracao);
 
-/* Nossas opções de entrada para configuração pela linha de comando. 
- * 
- * O comando é: node iniciar -opção valor
- *
- * - c  O endereço e nome do arquivo de configuração a ser carregado. ex. ./pasta/de/configuracao/configuracao.js
- * - p  A porta utilizada pelo servidor http. ex. 80
- */
-configuracao.cli({
-  configuracao: ['c', "Endereço da pasta e nome do arquivo de configuracao", 'path', pastaDeConfiguracaoPadrao],
-  porta: ['server.port', ['p', "Porta do servidor http", 'int']]
-});
+// Aqui nós iniciamos o suporte as entradas da linha de comando.
+entradas.iniciar(configuracao, pastaDeConfiguracaoPadrao);
 
-// Aqui carregamos o arquivo de configuração
+// Aqui carregamos o arquivo de configuração padrão.
 configuracao.defaults(pastaDeConfiguracaoPadrao);
 
 /* Carregamos assincronamente a nossa configuração e prosseguimos com a inicialização dos nossos serviços.
@@ -53,19 +42,25 @@ configuracao.load(function(args, opcs) {
 
   // Armazenamos aqui o endereço e nome do arquivo de configuração por meio dos argumentos informados.
   if(args.length > 0) {
-    opcs.configuracao = args[args.length - 1];
+    opcs.ARQUIVO_DE_CONFIGURACAO = args[args.length - 1];
   }
 
   // Faz a união ou substituição da configuração padrão com a configuração informada.
-  if(opcs.configuracao !== pastaDeConfiguracaoPadrao) {
-    configuracao.merge(require(opcs.configuracao));
+  if(opcs.ARQUIVO_DE_CONFIGURACAO !== pastaDeConfiguracaoPadrao) {
+    configuracao.merge(require(opcs.ARQUIVO_DE_CONFIGURACAO));
   }
   
   // Iniciamos o servidor express
   var aplicativo = express();
   
+  // Nossa configuração do servidor Express.
+  var confDoServidor = configuracao.servidor;
+  
+  // Nossa configuração do CORS.
+  var confDoCors = configuracao.servidor.cors;
+  
   // Aqui temos as origens permitidas no nosso serviço CORS. Lembre-se que iremos oferecer dois tipos de conexões (http e https).
-  var listaDasOrigensPermitidas = configuracao.servidor.cors.origem;
+  var listaDasOrigensPermitidas = confDoCors.origem;
 
   /* Iremos separar as preocupações do nosso projeto, para isso nós iremos oferecer os serviços deste servidor para
    * a parte da visão. Assim iremos oferecer aceitação de conexões e requisições dos dominios de origem permitidos 
@@ -78,34 +73,45 @@ configuracao.load(function(args, opcs) {
       var seOrigemPermitida = listaDasOrigensPermitidas.indexOf(origem) !== -1;
       cd(null, seOrigemPermitida);
     }  
-  , methods:  ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'OPTIONS']  // Métodos aceitos.
-  , allowedHeaders: ['Content-Range', 'X-total', 'Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version']
-  , exposedHeaders: ['Content-Range', 'X-total']  // Aqui teremos os cabeçalhos *expostos* para as requisições ajax. @Veja http://stackoverflow.com/a/15444439/4187180
-  , credentials: true
+  , methods:  confDoCors.metodos // Métodos aceitos.
+  , allowedHeaders: confDoCors.cabecalhosAceitos
+  , exposedHeaders: confDoCors.cabecalhosExpostos  // Aqui teremos os cabeçalhos *expostos* para as requisições ao servidor HTTP. @Veja http://stackoverflow.com/a/15444439/4187180
+  , credentials: confDoCors.credenciais
   }));
   
   /* Aqui temos a nossa chave e certificado. Foi utilizado a ferramenta openssl provida pelo git. 
    * O comando para cria-los: openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout privatekey.key -out certificate.crt
    * @Veja https://stackoverflow.com/questions/2355568/create-a-openssl-certificate-on-windows
    */
-  var chavePrivada  = sistemaDeArquivo.readFileSync('./certificados/' + configuracao.servidor.certificados.chavePrivada, 'utf8');
-  var certificado = sistemaDeArquivo.readFileSync('./certificados/' + configuracao.servidor.certificados.certificado, 'utf8');
+  var chavePrivada  = sistemaDeArquivo.readFileSync('./certificados/' + confDoServidor.certificados.chavePrivada, 'utf8');
+  var certificado = sistemaDeArquivo.readFileSync('./certificados/' + confDoServidor.certificados.certificado, 'utf8');
   var credenciais = {key: chavePrivada, cert: certificado};
   
   // Utilizamos o bodyParser para receber requisições POST ou PUT.
   // Lembre-se de manter o limit do body em 200kb para nos precaver dos ataques de negação de serviço.
   var bodyParser = require('body-parser');
-  aplicativo.use(bodyParser.json({limit: configuracao.servidor.limite}));
-  aplicativo.use(bodyParser.urlencoded({limit: configuracao.servidor.limite, extended: false}));
+  aplicativo.use(bodyParser.json({limit: confDoServidor.limite}));
+  aplicativo.use(bodyParser.urlencoded({limit: confDoServidor.limite, extended: false}));
   
   // Porta ao qual iremos receber requisições http.  
-  aplicativo.set('porta', process.env.PORT || configuracao.servidor.porta);
+  aplicativo.set('porta', process.env.PORT || confDoServidor.porta);
   
   // Porta ao qual iremos receber requisições https.  
-  aplicativo.set('portaSSL', process.env.SSLPORT || configuracao.servidor.portaSSL);
+  aplicativo.set('portaSSL', process.env.SSLPORT || confDoServidor.portaSSL);
   
   // Adicionamos isso para realizar o registro de requisições.
-  aplicativo.use(morgan('combined'));
+  aplicativo.use(morgan(confDoServidor.registro || 'combined')); 
+  
+  // Aqui nós iremos obrigado que as conexões não seguras sejam redirecionadas.
+  // Para mais informações @veja http://stackoverflow.com/a/10715802
+  aplicativo.use(function(req, res, proximo) {
+    // Se a requisição não for segura.
+    if(!req.secure && confDoServidor.exigirConSegura) {
+      // Aqui obrigamos a redirecionar para uma conexão segura.
+      return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    proximo();
+  });
   
   // Chamamos o arquivo principal, ele vai carregar os outros arquivos principais do servidor.
   var principal = require('./fonte/iniciador/principal');

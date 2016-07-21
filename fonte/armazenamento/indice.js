@@ -20,6 +20,7 @@ var Sequelize = require('sequelize');
 var Promessa = require('bluebird');
 var modelos = require('./modelos/indice');
 var registrador = require('../nucleo/registrador')('armazenamento');
+var _ = require('lodash');
 
 /* @Classe Armazenamento().
  *
@@ -51,16 +52,16 @@ var Armazenamento = function (configuracao) {
   if (!configuracao) {
     throw new Error('As configurações requisitadas para a database não foram informadas.');
   }
-  
-  /* @Propriedade {Objeto} [minhaConfiguracao] As configurações para o armazenamento. */
-  this.minhaConfiguracao = {
+
+  // Nossas opções padrões
+  _.defaults(configuracao, {         
     maxDeConsultasConcorrentes: 100  // Valor máximo de consultas concorrentes.
   , maxDeConexoes: 1                 // Valo máximo de conexões.
   , maxTempInativo: 30               // Tempo máximo inativo.
-  }
+  });
   
-  // Aqui extendemos as configurações com algumas pré-definidas.
-  this.minhaConfiguracao = utilitario._extend(configuracao, this.minhaConfiguracao);
+  /* @Propriedade {Objeto} [minhaConfiguracao] As configurações para o armazenamento. */
+  this.minhaConfiguracao = configuracao;
   
 };
 

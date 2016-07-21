@@ -28,10 +28,13 @@ function CarregaServicoRest() {}
  * @Parametro {Objeto} [armazenamento] Contêm o métodos e propriedades do nosso sistema de armazenamento.
  * @Retorna {Promessa} Uma promessa que pode ser de recusa ou deliberação.
  */
-CarregaServicoRest.prototype.carregar = function (aplicativo, armazenamento) {
+CarregaServicoRest.prototype.carregar = function (aplicativo, armazenamento, configuracao) {
+
+  /* @Propriedade {Objeto} [minhaConfiguracao] As nossas configurações. */
+  var minhaConfiguracao = configuracao.servidorRest;
 
   /* @Propriedade {Objeto} [srvcRest] O módulo do serviço REST. */
-  var servicoRest = new ServicoRest(aplicativo, armazenamento);
+  var servicoRest = new ServicoRest(aplicativo, armazenamento, minhaConfiguracao);
 
   // Inicia o serviço REST e retorna promessa.
   return servicoRest.iniciar();
