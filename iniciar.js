@@ -76,7 +76,7 @@ configuracao.load(function(args, opcs) {
   , methods:  confDoCors.metodos // Métodos aceitos.
   , allowedHeaders: confDoCors.cabecalhosAceitos
   , exposedHeaders: confDoCors.cabecalhosExpostos  // Aqui teremos os cabeçalhos *expostos* para as requisições ao servidor HTTP. @Veja http://stackoverflow.com/a/15444439/4187180
-  , credentials: confDoCors.credenciais
+  , credentials: confDoCors.seUsarCredenciais
   }));
   
   /* Aqui temos a nossa chave e certificado. Foi utilizado a ferramenta openssl provida pelo git. 
@@ -107,7 +107,7 @@ configuracao.load(function(args, opcs) {
   aplicativo.use(function(req, res, proximo) {
     // Se a requisição não for segura.
     if(!req.secure && confDoServidor.exigirConSegura) {
-      // Aqui obrigamos a redirecionar para uma conexão segura.
+      // Aqui faremos redirecionar para uma conexão segura.
       return res.redirect(['https://', req.get('Host'), req.url].join(''));
     }
     proximo();

@@ -67,13 +67,13 @@ var Armazenamento = function (configuracao) {
 
 utilitario.inherits(Armazenamento, EmissorDeEvento);
 
-/* @Método carregarModelos().
+/* @Método carregarOsModelos().
  *
  * Carrega todos modelos da pasta modelos e cada um deles é adicionado a este objeto.
  * Por exemplo, o modelo Slide será armazenado em this.Slide ou this[Slide].
  * Sendo assim a gente pode acessar daqui os diversos modelos.
  */
-Armazenamento.prototype.carregarModelos = function () {
+Armazenamento.prototype.carregarOsModelos = function () {
   modelos(this.sequelize, this);
 };
 
@@ -97,9 +97,9 @@ Armazenamento.prototype.iniciar = function (opcoesDeSincronizacao) {
 
   return new Promessa(function (deliberar, recusar) {
 
-    var maxDeConsultasConcorrentes = esteObjeto.minhaConfiguracao.maxDeConsultasConcorrentes ||  100; // Valor máximo de consultas concorrentes.
-    var maxDeConexoes = esteObjeto.minhaConfiguracao.maxDeConexoes ||  1;                             // Valo máximo de conexões.
-    var maxTempInativo = esteObjeto.minhaConfiguracao.maxTempInativo ||  30;                          // Tempo máximo inativo.
+    var maxDeConsultasConcorrentes = esteObjeto.minhaConfiguracao.maxDeConsultasConcorrentes ;  // Valor máximo de consultas concorrentes.
+    var maxDeConexoes = esteObjeto.minhaConfiguracao.maxDeConexoes;                             // Valo máximo de conexões.
+    var maxTempInativo = esteObjeto.minhaConfiguracao.maxTempInativo;                           // Tempo máximo inativo.
 
     // As opções base
     var opcoes = {
@@ -143,7 +143,7 @@ Armazenamento.prototype.iniciar = function (opcoesDeSincronizacao) {
     esteObjeto.sequelize = sequelize;
 
     // Carrega os arquivos que contem os nossos modelos.
-    esteObjeto.carregarModelos();
+    esteObjeto.carregarOsModelos();
 
     // Sincroniza os modelos com o banco de dados.
     sequelize.sync(opcoesDeSincronizacao).then(function() {

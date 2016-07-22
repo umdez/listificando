@@ -31,7 +31,7 @@
  *  - servidor.certificados.certificado  (Obrigatório) O certificado.
  *
  * @Diretiva {servidorRest} O nosso servidor Restificando.
- *  - servidorRest.endereco  (Opcional) O endereço base do serviço restificando.
+ *  - servidorRest.base  (Opcional) A nossa base do serviço restificando. ex. /listificando
  */
 module.exports = {
   
@@ -61,7 +61,7 @@ module.exports = {
       "metodos": ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],  
       "cabecalhosAceitos": ['Content-Range', 'X-total', 'Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
       "cabecalhosExpostos": ['Content-Range', 'X-total'], 
-      "credenciais": true
+      "seUsarCredenciais": true
     },
     "certificados": {                      // Certificados utilizados para o servidor https.
       "chavePrivada": "servidorHttps.key", // A chave privada.
@@ -71,7 +71,7 @@ module.exports = {
   
   // ServidorRest: As configurações do nosso servidor Restificando.
   "servidorRest": {
-    "endereco": ""
+    "base": ""
   }
   
 };

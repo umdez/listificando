@@ -46,28 +46,28 @@ var ServicoRest = function (aplicativo, armazenamento, configuracao) {
   
   // Nossas opções padrões
   _.defaults(configuracao, {         
-     endereco: ''   
+     base: ''   
   });
   
   /* @Propriedade {Objeto} [minhaConfiguracao] As configurações para este serviço. */
   this.minhaConfiguracao = configuracao;
 };
 
-/* @Método carregarFontes().
+/* @Método carregarAsFontes().
  *
  * Carregamos cada uma das nossas fontes. Cada fonte possui as informações necessárias
  * para a criação de estágios finais, a adição de associações e muitas outras 
  * caracteristicas para um modelo qualquer.
  */
-ServicoRest.prototype.carregarFontes = function () {
+ServicoRest.prototype.carregarAsFontes = function () {
   this.minhasFontes = fontes();
 };
 
-/* @Método carregarServicoRest().  
+/* @Método carregarNossoServicoRest().  
  *
  * Realiza o iniciar do serviço REST para cada uma das nossas fontes.
  */
-ServicoRest.prototype.carregarServicoRest = function () {
+ServicoRest.prototype.carregarNossoServicoRest = function () {
   
   var esteObjeto = this;
   
@@ -87,7 +87,7 @@ ServicoRest.prototype.carregarServicoRest = function () {
        *  - opcoes.sorteio.parametro      (Opcional) O parametro utilizado para sorteio.
        *  - opcoes.modelo                 (Obrigatório) Um modelo do Sequelize.
        *  - opcoes.estagiosFinais         (Opcional) Os estágio de determinada fonte.
-       *  - opcoes.metodoDeAtualizacao    (Opcional mas recomendado) Qual será o método para atualização? PUT, POST ou PATCH?
+       *  - opcoes.metodoDeAtualizacao    (Opcional mas recomendado) Qual será o método para atualização? put, post ou patch?
        *  - opcoes.sePossuiAssociacoes    (Opcional) Caso a fonte possua associações com outras fontes.
        *
        * @Veja https://github.com/umdez/restificando#readme
@@ -99,7 +99,7 @@ ServicoRest.prototype.carregarServicoRest = function () {
       ,  seRealizarPaginacao: false                 
       ,  seRecarregarInstancias: false            
       ,  excluirAtributos: []            
-      ,  metodoDeAtualizacao: 'POST'
+      ,  metodoDeAtualizacao: 'put'
       ,  estagiosFinais: false
       ,  incluir: []
       ,  modelo: esteObjeto.armazenamento[fonte.nome]
@@ -149,14 +149,14 @@ ServicoRest.prototype.iniciar = function () {
     restificando.inicializar({
       aplicativo: esteObjeto.aplicativo,             // Aplicativo Express.
       sequelize: esteObjeto.armazenamento.sequelize, // Nosso ORM Sequelize.
-      base: esteObjeto.minhaConfiguracao.endereco    // Endereço base do serviço. <umdez> Não está funcionando.
+      base: esteObjeto.minhaConfiguracao.base        // A nossa base do serviço. ex. /listificando
     });
     
     // Carregamos aqui as nossas fontes.
-    esteObjeto.carregarFontes();
+    esteObjeto.carregarAsFontes();
     
     // Carrega os arquivos que contem os nossos modelos.
-    esteObjeto.carregarServicoRest();
+    esteObjeto.carregarNossoServicoRest();
 
     // Se tudo ocorreu bem.
     deliberar(esteObjeto);

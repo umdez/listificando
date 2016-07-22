@@ -14,17 +14,17 @@ var ambiente = {};
 
 ambiente.iniciar = function(configuracao) {
   
-  this.iniciarVariaveisDoAmbiente(configuracao);
+  this.adicionarAsVariaveisDoAmbiente(configuracao);
 };
 
-ambiente.iniciarVariaveisDoAmbiente = function (configuracao) {
+ambiente.adicionarAsVariaveisDoAmbiente = function (configuracao) {
   
-  /* Nossos parametros do ambiente. 
+  /* Define todos as nossas variaveis do ambiente que devem ser incluidas na nossa configuração padrão.
+   * Isso faz reescrever os valores do arquivo de configuração (arquivos padrões tambem serão reescritos).
    *
    * Para mais informações veja o site https://github.com/dodo/node-jsconfig#configset
-   */ 
-  
-  // Parametros do ambiente
+   */
+   
   configuracao.set('env', {
   
   });
