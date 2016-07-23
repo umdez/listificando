@@ -1,18 +1,44 @@
 'use strict';
 
 var CarrosselSlide = {
-   nome: 'CarrosselSlide'                                        // É o nome dado a tabela (modelo) no banco de dados.
-,  estagiosFinais: ['/CarrosselSlides', '/CarrosselSlides/:id']  // Rotas para o serviço REST.
-,  acoes: ['ler', 'deletar', 'criar']
-,  sePossuiAssociacoes: false                                    // Se possui associações.
-,  parametroDeBusca: 'busc'                                      // O parametro utilizado na pesquisa.
-,  parametroDeSorteio: 'sort'                                    // Parametro de ordenamento.
-,  seRealizarPaginacao: false                                    // Caso seja necessário possuir suporte à paginação.
-,  controladores: null                                           // Os controladores desta rota.
-,  seRecarregarInstancias: true                                  // É importante *não* ligar esta opção, porque causa um comportamento estranho ao atualizar e ou criar registros.
-,  excluirAtributos: ['titulo', 'imagem_dir']
-,  metodoDeAtualizacao: 'put'
+   nome: 'CarrosselSlide'        // É o nome dado a tabela (modelo) no banco de dados.
+,  sePossuiAssociacoes: false    // Se possui associações.
+,  seRealizarPaginacao: false    // Caso seja necessário possuir suporte à paginação.
+,  controladores: null           // Os controladores desta fonte.
+,  seRecarregarInstancias: true  
+,  metodoDeAtualizacao: 'put'    // Qual será o método para atualização? put, post ou patch?
 };
+
+CarrosselSlide.estagiosFinais = [ // Os estágios para o serviço REST.
+  '/CarrosselSlides'              
+, '/CarrosselSlides/:id'          // Um registro em especifico.
+];  
+
+CarrosselSlide.busca = {
+  parametro: 'busc'      // O parametro a ser utilizado na busca.
+, operador: '$like'      // O operador a ser utilizado na busca.
+, atributos: []          // Os atributos a serem incluidos nas buscas.
+};
+
+CarrosselSlide.sorteio = {
+  parametro: 'sort'      // O parametro de sorteio.
+};
+
+CarrosselSlide.ordenamento = {
+  parametro: 'ord'  // O parametro de ordenamento a ser utilizado.
+};
+
+CarrosselSlide.acoes = [ // As ações permitidas nesta fonte.
+  'ler'                  // Oferece a capacidade de ler um determinado registro desta fonte.
+, 'deletar'              // Oferece a capacidade de deletar um determinado registro desta fonte. 
+, 'criar'                // Oferece a capacidade de criar um registro nesta fonte.
+, 'atualizar'            // Oferece a capacidade de atualizar um determinado registro desta fonte.
+];                                           
+
+CarrosselSlide.excluirAtributos = [ // Os atributos que serão excluidos.
+  'titulo'
+, 'imagem_dir'
+];        
 
 CarrosselSlide.controlador = {};
 

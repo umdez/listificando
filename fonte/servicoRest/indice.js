@@ -107,7 +107,8 @@ ServicoRest.prototype.carregarNossoServicoRest = function () {
       
       _.defaultsDeep(fonte, {
         busca: {
-          parametro: 'busc'
+          parametro: 'busc',
+          operador: '$like'
         },
         sorteio: {
           parametro: 'sort'
