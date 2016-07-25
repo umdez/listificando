@@ -79,8 +79,8 @@ ServicoRest.prototype.carregarNossoServicoRest = function () {
       /* Carregamos aqui a nossa fonte. Os parametros possiveis são listados abaixo: 
        *
        *  - opcoes.acoes                  (Opcional) As ações aceitas por esta fonte. 
-       *  - opcoes.seRealizarPaginacao    (Opcional) Caso seja necessário habilitar a paginação para determinada fonte.
-       *  - opcoes.seRecarregarInstancias (Opcional)
+       *  - opcoes.seForRealizarPaginacao    (Opcional) Caso seja necessário habilitar a paginação para determinada fonte.
+       *  - opcoes.seForRecarregarInstancias (Opcional)
        *  - opcoes.incluir                (Opcional) Vamos incluir mais alguns modelos?
        *  - opcoes.excluirAtributos       (Opcional) Os atributos não necessários e que devem ser excluidos.
        *  - opcoes.busca.parametro        (Opcional) O parametro utilizado para a busca.
@@ -90,14 +90,14 @@ ServicoRest.prototype.carregarNossoServicoRest = function () {
        *  - opcoes.metodoDeAtualizacao    (Opcional mas recomendado) Qual será o método para atualização? put, post ou patch?
        *  - opcoes.sePossuiAssociacoes    (Opcional) Caso a fonte possua associações com outras fontes.
        *
-       * @Veja https://github.com/umdez/restificando#readme
+       * @Veja https://github.com/umdez/restificando/blob/master/docs/aConfiguracao.md
        */
       
       _.defaults(fonte, {         
          acoes: ['criar', 'listar', 'ler', 'atualizar', 'deletar']
       ,  sePossuiAssociacoes: false  
-      ,  seRealizarPaginacao: false                 
-      ,  seRecarregarInstancias: false            
+      ,  seForRealizarPaginacao: false                 
+      ,  seForRecarregarInstancias: false            
       ,  excluirAtributos: []            
       ,  metodoDeAtualizacao: 'put'
       ,  estagiosFinais: false

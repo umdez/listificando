@@ -1,12 +1,15 @@
 'use strict';
 
+/* A nossa configuração para a fonte CarrosselSlide.
+ * @Veja https://github.com/umdez/restificando/blob/master/docs/aConfiguracao.md
+ */
 var CarrosselSlide = {
-   nome: 'CarrosselSlide'        // É o nome dado a tabela (modelo) no banco de dados.
-,  sePossuiAssociacoes: false    // Se possui associações.
-,  seRealizarPaginacao: false    // Caso seja necessário possuir suporte à paginação.
-,  controladores: null           // Os controladores desta fonte.
-,  seRecarregarInstancias: true  
-,  metodoDeAtualizacao: 'put'    // Qual será o método para atualização? put, post ou patch?
+   nome: 'CarrosselSlide'         // É o nome dado a tabela (modelo) no banco de dados.
+,  sePossuiAssociacoes: false     // Se possui associações.
+,  seForRealizarPaginacao: false  // Caso seja necessário possuir suporte à paginação.
+,  controladores: null            // Os controladores desta fonte.
+,  seForRecarregarInstancias: true  
+,  metodoDeAtualizacao: 'put'     // Qual será o método para atualização? put, post ou patch?
 };
 
 CarrosselSlide.estagiosFinais = [ // Os estágios para o serviço REST.
