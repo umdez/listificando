@@ -25,11 +25,8 @@ Usuario.busca = {
 
 Usuario.sorteio = {
   parametro: 's'  // O parametro de sorteio a ser utilizado.
-, atributos: undefined
-//, padrao: 'sort'
+, padrao: 'id'
 };
-
-//Exame.sorteio = { padrao: '' };
 
 Usuario.ordenamento = {
   parametro: 'o'  // O parametro de ordenamento a ser utilizado.

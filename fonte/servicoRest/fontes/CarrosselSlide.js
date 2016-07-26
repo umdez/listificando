@@ -25,7 +25,6 @@ CarrosselSlide.busca = {
 
 CarrosselSlide.sorteio = {
   parametro: 's'      // O parametro de sorteio.
-, atributos: undefined
 };
 
 CarrosselSlide.ordenamento = {
