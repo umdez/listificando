@@ -29,8 +29,8 @@ define([
     /* @Propriedade {Objeto} [routes] Contêm as nossas rotas. */
     routes: {
       '':            'inicio'
-    , ':modulo':     'rotasDeUmNivel'
-    , ':modulo/:id': 'rotasDeDoisNiveis'
+    , ':modulo':     'asRotasDeUmNivel'
+    , ':modulo/:id': 'asRotasDeDoisNiveis'
     },
     
     /* @Construtor initialize().
@@ -54,19 +54,19 @@ define([
       
     },
     
-    /* @Método rotasDeUmNivel(). 
+    /* @Método asRotasDeUmNivel(). 
      *
      * Esta é a rota chamada quando o usuário não especificar um id.
      */
-    rotasDeUmNivel: function(modulo){
+    asRotasDeUmNivel: function(modulo){
       
     },
 
-    /* @Método rotasDeDoisNiveis(). 
+    /* @Método asRotasDeDoisNiveis(). 
      *
      * Esta é a rota chamada quando o usuário informar um id.
      */
-    rotasDeDoisNiveis: function(modulo, id){
+    asRotasDeDoisNiveis: function(modulo, id){
       
     }
     
