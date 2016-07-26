@@ -112,6 +112,9 @@ ServicoRest.prototype.carregarNossoServicoRest = function () {
         },
         sorteio: {
           parametro: 'sort'
+        },
+        ordenamento: {
+          parametro: 'ord'  
         }
       });
       
