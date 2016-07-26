@@ -113,6 +113,15 @@ configuracao.load(function(args, opcs) {
     proximo();
   });
   
+  // Iremos servir as páginas do diretorio "/testes"
+  aplicativo.use('/testes', express.static(pasta.join(__dirname, 'testes')));  
+  
+  // Iremos servir as páginas do diretorio "testes/incluir/js/bibliotecas"
+  aplicativo.use('/bibliotecas', express.static(pasta.join(__dirname, 'testes/incluir/js/bibliotecas'))); 
+
+  // Iremos servir as páginas do diretorio "testes/incluir/estilos"
+  aplicativo.use('/estilos', express.static(pasta.join(__dirname, 'testes/incluir/estilos'))); 
+  
   // Chamamos o arquivo principal, ele vai carregar os outros arquivos principais do servidor.
   var principal = require('./fonte/iniciador/principal');
   
