@@ -25,7 +25,7 @@
 require.config({
   
   // Base de onde os scripts serão requisitados.
-  baseUrl: "/testes/js",
+  baseUrl: "/js",
   
   // Quantidade de segundos para desistir de carregar um módulo.
   waitSeconds: 7,
@@ -33,12 +33,11 @@ require.config({
   // Os caminhos de cada um dos nossos modulos.
   paths: {
     'text': '/bibliotecas/text'                              // Para carregamento de arquivos em texto. por exemplo, arquivos .html
-  , 'underscore': '/bibliotecas/underscore'
-  , 'backbone': '/bibliotecas/backbone'                      // Backbone
+  , 'underscore': '/bibliotecas/underscore.min'
+  , 'backbone': '/bibliotecas/backbone.min'                  // Backbone
   , 'backbone.paginator': '/bibliotecas/backbone.paginator'  // Adicionar paginação ao BackBone. @veja https://github.com/backbone-paginator/backbone.paginator
-  , 'jquery': '/bibliotecas/jquery'
-  , 'templantes': '../templantes'                            // Pasta dos nossos templantes
-  , 'domReady': '/bibliotecas/domReady'
+  , 'jquery': '/bibliotecas/jquery.min'
+  , 'domready': '/bibliotecas/domready'
   },
   
   // Lembre-se: Somente usar o shim para aqueles scripts que não são AMD. 
@@ -58,7 +57,7 @@ require.config({
 
 require([
   'aplicativo'  // Carrega o modulo do aplicativo e o passa para nossa função de definição
-, 'domReady'    // Vamos esperar o DOM estiver apresentado e carregado.
+, 'domready'    // Vamos esperar o DOM estiver apresentado e carregado.
 ], function(Aplicativo, DomReady) {
   
   DomReady(function () {  // É chamada logo após a página estiver toda carregada e apresentada.

@@ -24,15 +24,15 @@ module.exports = function (sequelize, bd)  {
       var modelo = sequelize.import(pasta.join(__dirname, arquivo));
 
 	    // Adiciona modelo para um objeto
-      bd[modelo.name] = modelo;
-      modelos.push(modelo);
+      bd[modelo.mod.name] = modelo.mod;
+      modelos.push(modelo.mod);
     });
 
   // No momento em que o modelo é definido, vamos carregar as associações
   modelos.forEach(function (modelo) {
     
-    if (modelo.options.hasOwnProperty('associate')) {
-      modelo.options.associate(bd);
+    if (modelo.options.hasOwnProperty('associar')) {
+      modelo.options.associar(bd);
     }
   });
 

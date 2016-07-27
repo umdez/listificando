@@ -17,7 +17,8 @@ define([
   'jquery'
 , 'backbone'
 , 'underscore'
-], function($, Backbone, _){
+, 'visoes/base/base'
+], function($, Backbone, _, VisaoBase){
   
   /* @Roteador SitioRoteador().
    *
@@ -36,10 +37,10 @@ define([
     /* @Construtor initialize().
      *
      * Aqui realizamos o inicio do nosso roteador. 
-     *
-     * @Parametro {Controlador} [ctrldrRotas] Gerencia as rotas.
      */
     initialize: function () {
+      
+      this.visaoBase = new VisaoBase();
       
       this.bind('route', function() {
         
@@ -59,7 +60,7 @@ define([
      * Esta é a rota chamada quando o usuário não especificar um id.
      */
     asRotasDeUmNivel: function(modulo){
-      
+      console.log(modulo);
     },
 
     /* @Método asRotasDeDoisNiveis(). 
@@ -75,13 +76,13 @@ define([
   /* @Função inicializar().
    *
    * Responsável iniciar o nosso roteador e o histório de rotas.
-  */
+   */
   var inicializar = function() {
     
-      var sitioRoteador = new SitioRoteador();
+    var sitioRoteador = new SitioRoteador();
       
-      // Iniciamos aqui o histórico das rotas.
-      Backbone.history.start();   
+    // Iniciamos aqui o histórico das rotas.
+    Backbone.history.start();   
   };
  
   return { 
