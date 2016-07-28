@@ -10,16 +10,13 @@
  * Versão atual 0.0.2-Beta
  */
 
-define([
-  'jquery'
-, 'underscore'
-, 'roteador' // Requisitamos o nosso roteador
-, 'backbone'
-], function($, _, Roteador, Backbone){
+define([ 
+  'roteador' // Requisitamos o nosso roteador
+], function(
+  Roteador
+) {
   
-  /* @Função inicializar().
-   *
-   * Responsável por inicializar o nosso roteador.
+  /* @Função inicializar(). Responsável por inicializar o nosso roteador.
    */
   var inicializar = function(){
     

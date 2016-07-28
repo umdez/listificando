@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*******************************************************************
  * Listificando é de (C) propriedade da Devowly Sistemas 2015-2016 *
@@ -18,7 +18,12 @@ define([
 , 'backbone'
 , 'underscore'
 , 'visoes/base/base'
-], function($, Backbone, _, VisaoBase){
+], function(
+  $
+, Backbone
+, _
+, VisaoBase
+) {
   
   /* @Roteador SitioRoteador().
    *
@@ -27,45 +32,34 @@ define([
    */
   var SitioRoteador = Backbone.Router.extend({
     
-    /* @Propriedade {Objeto} [routes] Contêm as nossas rotas. */
+    /* @Propriedade {Objeto} [routes] Contêm as nossas rotas. 
+     */
     routes: {
       '':            'inicio'
     , ':modulo':     'asRotasDeUmNivel'
     , ':modulo/:id': 'asRotasDeDoisNiveis'
     },
     
-    /* @Construtor initialize().
-     *
-     * Aqui realizamos o inicio do nosso roteador. 
+    /* @Construtor initialize(). Aqui realizamos o inicio do nosso roteador. 
      */
     initialize: function () {
       
       this.visaoBase = new VisaoBase();
-      
-      this.bind('route', function() {
-        
-      });
     },
     
-    /* @Método inicio().
-     *
-     * Esta é a rota sempre apresentada inicialmente.
+    /* @Método inicio(). Esta é a rota sempre apresentada inicialmente.
      */
     inicio: function() {
       
     },
     
-    /* @Método asRotasDeUmNivel(). 
-     *
-     * Esta é a rota chamada quando o usuário não especificar um id.
+    /* @Método asRotasDeUmNivel(). Esta é a rota chamada quando o usuário não especificar um id.
      */
     asRotasDeUmNivel: function(modulo){
-      console.log(modulo);
+      
     },
 
-    /* @Método asRotasDeDoisNiveis(). 
-     *
-     * Esta é a rota chamada quando o usuário informar um id.
+    /* @Método asRotasDeDoisNiveis(). Esta é a rota chamada quando o usuário informar um id.
      */
     asRotasDeDoisNiveis: function(modulo, id){
       
@@ -73,9 +67,7 @@ define([
     
   });
   
-  /* @Função inicializar().
-   *
-   * Responsável iniciar o nosso roteador e o histório de rotas.
+  /* @Função inicializar(). Responsável iniciar o nosso roteador e o histório de rotas.
    */
   var inicializar = function() {
     

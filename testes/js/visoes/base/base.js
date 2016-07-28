@@ -1,36 +1,41 @@
-'use strict'
+'use strict';
 
 /* Suporte para visão base do sistema. */
 
 define([
   'jquery'
-, 'backbone'
+, 'backbone' 
 , 'underscore'
 , 'text!/js/templantes/base/base.html'
-], function($, Backbone, _, Templante) {
+], function(
+  $ 
+, Backbone
+, _
+, Templante
+) {
   
-    var Base = Backbone.View.extend({
+  var Base = Backbone.View.extend({
 
-		  el: $('#conteudo-raiz'),
+    el: $('#conteudo-raiz'),
+
+    templante: _.template(Templante),
     
-      templante: _.template(Templante),
+    attributes: {
       
-      attributes: {
-        
-      },
+    },
+    
+    initialize: function() {
+      this.render();
+    },
+
+    render: function() {
       
-      initialize: function () {
-        this.render();
-      },
+      this.$el.html(this.templante());
+    },
 
-      render: function () {
-        
-        this.$el.html(this.templante());
-      },
-
-      events: {
-        
-      }
+    events: {
+      
+    }
   });
 
   return Base;

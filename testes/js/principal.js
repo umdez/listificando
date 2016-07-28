@@ -16,11 +16,11 @@
 /* O require.js nos habilita a realizar uma configuração dos atalhos dos modulos.
  * Também é responsável pelo carregamento ordenado dos módulos utilizando dependencias.
  *
- * @Diretiva {baseUrl} O caminho base onde os scripts serão requisitados.
- * @Diretiva {waitSeconds} Limite em segundos do total de segundos que serão 
- *                         esperados para o carregamento total de determinado script.
- * @Diretiva {paths} O caminho onde determinado módulo se encontra.
- * @Diretiva {shim} Realizamos o carregamento de scripts que não são compativeis com o padrão AMD.
+ * @Diretiva {baseUrl}      (Obrigatório) O caminho base onde os scripts serão requisitados.
+ * @Diretiva {waitSeconds}  (Opcional mas Recomendado) Limite em segundos do total de segundos que serão 
+ *                                                     esperados para o carregamento total de determinado script.
+ * @Diretiva {paths}        (Opcional) O caminho onde determinado módulo se encontra.
+ * @Diretiva {shim}         (Opcional) Realizamos o carregamento de scripts e suas dependencias que não são compativeis com o padrão AMD.
  */
 require.config({
   
@@ -58,9 +58,10 @@ require.config({
 require([
   'aplicativo'  // Carrega o modulo do aplicativo e o passa para nossa função de definição
 , 'domready'    // Vamos esperar o DOM estiver apresentado e carregado.
-], function(Aplicativo, DomReady) {
+], function(Aplicativo, quandoCarregado) {
   
-  DomReady(function () {  // É chamada logo após a página estiver toda carregada e apresentada.
+  // Chamado logo após a página estiver totalmente carregada e apresentada.
+  quandoCarregado(function() {  
 
     // Aqui nós iniciamos aqui nosso aplicativo.
     Aplicativo.inicializar();
