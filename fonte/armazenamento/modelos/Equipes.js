@@ -1,11 +1,11 @@
-/* @arquivo Equipe.js */
+/* @arquivo Equipes.js */
 
 module.exports = function (database, DataTypes) {
   
   var VERSAO_BANCO_DADOS = 1;
   
   // Aqui temos o nosso modelo de equipes.
-  var Equipe = database.define('Equipe', {
+  var Equipes = database.define('Equipes', {
     
     // Cada equipe terá um identificador único.
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -20,14 +20,14 @@ module.exports = function (database, DataTypes) {
     associar: function (modelos) {
       // Cada uma das equipes possuirá um time de colaboradores responsáveis, 
       // por isso, nós adicionaremos uma chave estrangeira (equipe_id) no modelo colaborador.
-      modelos.Equipe.hasMany(modelos.Colaborador, { foreignKey: 'equipe_id' }); 
+      modelos.Equipes.hasMany(modelos.Colaboradores, { foreignKey: 'equipe_id' }); 
     },
     underscored: true, // Lembre-se de que utilizamos o padrão snake_case
     timestamps: false
   });
 
   return {
-    mod: Equipe
+    mod: Equipes
   , versao: VERSAO_BANCO_DADOS
   }
 };

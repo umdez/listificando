@@ -1,11 +1,11 @@
-/* @arquivo Colaborador.js */
+/* @arquivo Colaboradores.js */
 
 module.exports = function (database, DataTypes) {
   
   var VERSAO_BANCO_DADOS = 1;
   
   // Aqui temos o nosso modelo de colaboradores.
-  var Colaborador = database.define('Colaborador', {
+  var Colaboradores = database.define('Colaboradores', {
     
     // Cada colaborador terá um identificador único.
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -25,7 +25,7 @@ module.exports = function (database, DataTypes) {
   });
 
   return {
-    mod: Colaborador
+    mod: Colaboradores
   , versao: VERSAO_BANCO_DADOS
   }
 };

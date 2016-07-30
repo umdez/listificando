@@ -35,7 +35,12 @@ define([
 
     events: {
       
+    },
+    
+    onClose: function() {
+      
     }
+    
   });
 
   return Base;

@@ -1,10 +1,10 @@
 'use strict';
 
-/* A nossa configuração para a fonte Colaborador.
+/* A nossa configuração para a fonte Equipes.
  * @Veja https://github.com/umdez/restificando/blob/master/docs/aConfiguracao.md
  */
-var Colaborador = {
-   nome: 'Colaborador'              // É o nome dado a tabela (modelo) no banco de dados.
+var Equipes = {
+   nome: 'Equipes'                   // É o nome dado a tabela (modelo) no banco de dados.
 ,  sePossuiAssociacoes: true        // Se possui associações.
 ,  seForRealizarPaginacao: true     // Caso seja necessário possuir suporte à paginação.
 ,  controladores: null              // Os controladores desta fonte.
@@ -12,27 +12,27 @@ var Colaborador = {
 ,  metodoDeAtualizacao: 'put'       // Qual será o método para atualização? put, post ou patch?  
 };
 
-Colaborador.estagiosFinais = [ // Os estágios para o serviço REST.
-  '/Colaboradores'              
-, '/Colaboradores/:id'         // Um registro em especifico.
+Equipes.estagiosFinais = [ // Os estágios para o serviço REST.
+  '/Equipes'              
+, '/Equipes/:id'          // Um registro em especifico.
 ];  
 
-Colaborador.busca = {
+Equipes.busca = {
   parametro: 'b'     // O parametro a ser utilizado na busca.
 , operador: '$like'  // O operador a ser utilizado na busca.
 , atributos: []      // Os atributos a serem incluidos nas buscas.
 };
 
-Colaborador.sorteio = {
+Equipes.sorteio = {
   parametro: 's'  // O parametro de sorteio a ser utilizado.
 , padrao: 'id'    // Parametro de sorteio padrão.
 };
 
-Colaborador.ordenamento = {
+Equipes.ordenamento = {
   parametro: 'o'  // O parametro de ordenamento a ser utilizado.
 };
 
-Colaborador.acoes = [ // As ações permitidas nesta fonte.
+Equipes.acoes = [  // As ações permitidas nesta fonte.
   'ler'           // Oferece a capacidade de ler um determinado registro desta fonte.
 , 'deletar'       // Oferece a capacidade de deletar um determinado registro desta fonte. 
 , 'criar'         // Oferece a capacidade de criar um registro nesta fonte.
@@ -40,7 +40,7 @@ Colaborador.acoes = [ // As ações permitidas nesta fonte.
 , 'listar'        // Oferece a capacidade de listar os registros desta fonte.
 ];                                           
 
-Colaborador.excluirAtributos = [ // Os atributos que serão excluidos.
+Equipes.excluirAtributos = [ // Os atributos que serão excluidos.
   
 ];        
 
@@ -50,7 +50,7 @@ Colaborador.excluirAtributos = [ // Os atributos que serão excluidos.
  *
  * @Retorna {Objeto} Os controladores desta fonte para o Restificando. 
  */
-Colaborador.controladores = function() {
+Equipes.controladores = function() {
   return {
     'ler': {
       'autenticar': {
@@ -68,4 +68,4 @@ Colaborador.controladores = function() {
   }
 };
 
-module.exports = Colaborador;
+module.exports = Equipes;

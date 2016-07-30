@@ -1,10 +1,10 @@
 'use strict';
 
-/* A nossa configuração para a fonte Equipe.
+/* A nossa configuração para a fonte Projetos.
  * @Veja https://github.com/umdez/restificando/blob/master/docs/aConfiguracao.md
  */
-var Equipe = {
-   nome: 'Equipe'                   // É o nome dado a tabela (modelo) no banco de dados.
+var Projetos = {
+   nome: 'Projetos'                  // É o nome dado a tabela (modelo) no banco de dados.
 ,  sePossuiAssociacoes: true        // Se possui associações.
 ,  seForRealizarPaginacao: true     // Caso seja necessário possuir suporte à paginação.
 ,  controladores: null              // Os controladores desta fonte.
@@ -12,27 +12,27 @@ var Equipe = {
 ,  metodoDeAtualizacao: 'put'       // Qual será o método para atualização? put, post ou patch?  
 };
 
-Equipe.estagiosFinais = [ // Os estágios para o serviço REST.
-  '/Equipes'              
-, '/Equipes/:id'          // Um registro em especifico.
+Projetos.estagiosFinais = [ // Os estágios para o serviço REST.
+  '/Projetos'              
+, '/Projetos/:id'          // Um registro em especifico.
 ];  
 
-Equipe.busca = {
+Projetos.busca = {
   parametro: 'b'     // O parametro a ser utilizado na busca.
 , operador: '$like'  // O operador a ser utilizado na busca.
 , atributos: []      // Os atributos a serem incluidos nas buscas.
 };
 
-Equipe.sorteio = {
+Projetos.sorteio = {
   parametro: 's'  // O parametro de sorteio a ser utilizado.
 , padrao: 'id'    // Parametro de sorteio padrão.
 };
 
-Equipe.ordenamento = {
+Projetos.ordenamento = {
   parametro: 'o'  // O parametro de ordenamento a ser utilizado.
 };
 
-Equipe.acoes = [  // As ações permitidas nesta fonte.
+Projetos.acoes = [ // As ações permitidas nesta fonte.
   'ler'           // Oferece a capacidade de ler um determinado registro desta fonte.
 , 'deletar'       // Oferece a capacidade de deletar um determinado registro desta fonte. 
 , 'criar'         // Oferece a capacidade de criar um registro nesta fonte.
@@ -40,7 +40,7 @@ Equipe.acoes = [  // As ações permitidas nesta fonte.
 , 'listar'        // Oferece a capacidade de listar os registros desta fonte.
 ];                                           
 
-Equipe.excluirAtributos = [ // Os atributos que serão excluidos.
+Projetos.excluirAtributos = [ // Os atributos que serão excluidos.
   
 ];        
 
@@ -50,7 +50,7 @@ Equipe.excluirAtributos = [ // Os atributos que serão excluidos.
  *
  * @Retorna {Objeto} Os controladores desta fonte para o Restificando. 
  */
-Equipe.controladores = function() {
+Projetos.controladores = function() {
   return {
     'ler': {
       'autenticar': {
@@ -68,4 +68,4 @@ Equipe.controladores = function() {
   }
 };
 
-module.exports = Equipe;
+module.exports = Projetos;
