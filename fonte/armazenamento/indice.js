@@ -10,8 +10,9 @@
  * Versão atual 0.0.1-Beta
  */
 
-/* Implementação do nosso armazenamento de dados. Oferecendo o suporte completo de um
- * Banco de Dados relacional ao nosso aplicativo. @Veja http://docs.sequelizejs.com/en/latest/
+/* Implementação do nosso armazenamento de dados. Oferecendo o suporte completo
+ * de um Banco de Dados relacional ao nosso aplicativo. @Veja
+ * http://docs.sequelizejs.com/en/latest/
  */
 
 var utilitario = require('util');
@@ -24,24 +25,40 @@ var _ = require('lodash');
 
 /* @Classe Armazenamento().
  *
- * Contêm as funções para a gerencia da database. Aqui iremos tentar uma conexão com o nosso banco de dados.
- * Para a conexão estaremos utilizando o Sequelize. Assim que a conexão for realizadas nós iremos 
- * sincronizar com o banco, faremos isso ao carregarmos todos os arquivos de modelos do nosso banco.
- * Ao final nós teremos cada modelo como uma propriedades desta classe, por exemplo, quando 
- * carregarmos o modelo de nome Slide, ele poderá ser acesso a qualquer momento utilizando this.Slide ou
- * this[Slide].
+ * Contêm as funções para a gerencia da database. Aqui iremos tentar uma conexão
+ * com o nosso banco de dados. Para a conexão estaremos utilizando o Sequelize.
+ * Assim que a conexão for realizadas nós iremos sincronizar com o banco,
+ * faremos isso ao carregarmos todos os arquivos de modelos do nosso banco. Ao
+ * final nós teremos cada modelo como uma propriedades desta classe, por
+ * exemplo, quando carregarmos o modelo de nome Slide, ele poderá ser acesso a
+ * qualquer momento utilizando this.Slide ou this[Slide].
  *
- * As configurações obrigatórias e opcionais para o armazenamento estão listadas abaixo:
+ * As configurações obrigatórias e opcionais para o armazenamento estão listadas
+ * abaixo:
  *
- *  - dialeto                    {Texto}  (Obrigatório) O dialeto usado. Podendo ser: mysql, postgres ou então sqlite.
- *  - porta                      {Número} (Opcional e Recomendado) A porta utilizada para conexão com o nosso banco de dados. Exeto para o SQlite.
- *  - endereco                   {Texto}  (Opcional e Recomendado) O endereço do nosso banco de dados. Exeto para o SQlite.
- *  - senha                      {Texto}  (Obrigatório) A nossa senha de conexão com o banco. Exeto para o SQlite.
- *  - database                   {Texto}  (Obrigatório) O nome do banco utilizado.
- *  - usuario                    {Texto}  (Obrigatório) O nome do usuário do banco. Exeto para o SQLite.
- *  - maxDeConsultasConcorrentes {Número} (Opcional) Valor máximo de consultas concorrentes.
- *  - maxDeConexoes              {Número} (Opcional) Valo máximo de conexões.
- *  - maxTempInativo             {Número} (Opcional) Tempo máximo inativo.
+ * - dialeto {Texto}  (Obrigatório) O dialeto usado. Podendo ser: mysql,
+ * postgres ou então sqlite.
+ *
+ * - porta {Número} (Opcional e Recomendado) A porta utilizada para conexão com
+ * o nosso banco de dados. Exeto para o SQlite.
+ *
+ * - endereco {Texto}  (Opcional e Recomendado) O endereço do nosso banco de
+ * dados. Exeto para o SQlite.
+ *
+ * - senha {Texto}  (Obrigatório) A nossa senha de conexão com o banco. Exeto
+ * para o SQlite.
+ *
+ * - database {Texto}  (Obrigatório) O nome do banco utilizado.
+ *
+ * - usuario {Texto}  (Obrigatório) O nome do usuário do banco. Exeto para o
+ * SQLite.
+ *
+ * - maxDeConsultasConcorrentes {Número} (Opcional) Valor máximo de consultas
+ * concorrentes.
+ *
+ * - maxDeConexoes {Número} (Opcional) Valo máximo de conexões.
+ *
+ * - maxTempInativo {Número} (Opcional) Tempo máximo inativo.
  *
  * @Parametro {Objeto} [configuracao] Contem todas as configurações deste serviço.
  --------------------------------------------------------------------------------------------------------------*/
@@ -69,9 +86,9 @@ utilitario.inherits(Armazenamento, EmissorDeEvento);
 
 /* @Método carregarOsModelos().
  *
- * Carrega todos modelos da pasta modelos e cada um deles é adicionado a este objeto.
- * Por exemplo, o modelo Slide será armazenado em this.Slide ou this[Slide].
- * Sendo assim a gente pode acessar daqui os diversos modelos.
+ * Carrega todos modelos da pasta modelos e cada um deles é adicionado a este
+ * objeto. Por exemplo, o modelo Slide será armazenado em this.Slide ou
+ * this[Slide]. Sendo assim a gente pode acessar daqui os diversos modelos.
  */
 Armazenamento.prototype.carregarOsModelos = function () {
   modelos(this.sequelize, this);
@@ -79,11 +96,13 @@ Armazenamento.prototype.carregarOsModelos = function () {
 
 /* @Método [Público] iniciar(). 
  *
- * Inicia o nosso banco de dados e sincroniza as tabelas se elas não estiverem lá.
+ * Inicia o nosso banco de dados e sincroniza as tabelas se elas não estiverem
+ * lá.
  *
  * Algumas configurações são listadas abaixo:
  *
- * - force {Boleano} (Opcional) Se for verdadeiro (true) irá primeiramente remover (drop) as tabelas antes de as criar novamente.
+ * - force {Boleano} (Opcional) Se for verdadeiro (true) irá primeiramente
+ * remover (drop) as tabelas antes de as criar novamente.
  *
  * @Parametro {Objeto} [opcoesDeSincronizacao] Configura as opções de sincronização.
  * @Retorna {Promessa} Uma promessa de recusa em caso de erro, ou de deliberação se tudo correr bem.

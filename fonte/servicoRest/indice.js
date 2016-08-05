@@ -22,7 +22,8 @@ var _ = require('lodash');
 
 /* @Classe ServicoRest().
  *
- * Abstração da gerencia das rotas do serviço REST. Realiza o carregamento das rotas REST do nosso servidor.
+ * Abstração da gerencia das rotas do serviço REST. Realiza o carregamento das
+ * rotas REST do nosso servidor.
  *
  * @Parametro {Objeto} [aplicativo] O nosso aplicativo Express.
  * @Parametro {Objeto} [armazenamento] Contêm o objeto do nosso banco de dados.
@@ -38,7 +39,9 @@ var ServicoRest = function (aplicativo, armazenamento, configuracao) {
     throw new Error('As configurações requisitadas para o serviço Rest não foram informadas.');
   }
 
-  /* @Propriedade {Objeto} [armazenamento] Classe de armazenamento para o Sequelize. */ 
+  /* @Propriedade {Objeto} [armazenamento] Classe de armazenamento para o
+   * Sequelize. 
+   */
   this.armazenamento = armazenamento; 
    
   /* @Propriedade {Objeto} [aplicativo] Armazena aplicativo express. */  
@@ -49,15 +52,17 @@ var ServicoRest = function (aplicativo, armazenamento, configuracao) {
      base: ''   
   });
   
-  /* @Propriedade {Objeto} [minhaConfiguracao] As configurações para este serviço. */
+  /* @Propriedade {Objeto} [minhaConfiguracao] As configurações para este
+   * serviço. 
+   */
   this.minhaConfiguracao = configuracao;
 };
 
 /* @Método carregarAsFontes().
  *
- * Carregamos cada uma das nossas fontes. Cada fonte possui as informações necessárias
- * para a criação de estágios finais, a adição de associações e muitas outras 
- * caracteristicas para um modelo qualquer.
+ * Carregamos cada uma das nossas fontes. Cada fonte possui as informações
+ * necessárias para a criação de estágios finais, a adição de associações e
+ * muitas outras caracteristicas para um modelo qualquer.
  */
 ServicoRest.prototype.carregarAsFontes = function () {
   this.minhasFontes = fontes();
@@ -76,19 +81,35 @@ ServicoRest.prototype.carregarNossoServicoRest = function () {
     // Verificamos inicialmente se existe esse modelo.
     if (esteObjeto.armazenamento.hasOwnProperty(fonte.nome)) {
       
-      /* Carregamos aqui a nossa fonte. Os parametros possiveis são listados abaixo: 
+      /* Carregamos aqui a nossa fonte. Os parametros possiveis são listados
+       * abaixo:
        *
-       *  - opcoes.acoes                  (Opcional) As ações aceitas por esta fonte. 
-       *  - opcoes.seForRealizarPaginacao    (Opcional) Caso seja necessário habilitar a paginação para determinada fonte.
-       *  - opcoes.seForRecarregarInstancias (Opcional)
-       *  - opcoes.incluir                (Opcional) Vamos incluir mais alguns modelos?
-       *  - opcoes.excluirAtributos       (Opcional) Os atributos não necessários e que devem ser excluidos.
-       *  - opcoes.busca.parametro        (Opcional) O parametro utilizado para a busca.
-       *  - opcoes.sorteio.parametro      (Opcional) O parametro utilizado para sorteio.
-       *  - opcoes.modelo                 (Obrigatório) Um modelo do Sequelize.
-       *  - opcoes.estagiosFinais         (Opcional) Os estágio de determinada fonte.
-       *  - opcoes.metodoDeAtualizacao    (Opcional mas recomendado) Qual será o método para atualização? put, post ou patch?
-       *  - opcoes.sePossuiAssociacoes    (Opcional) Caso a fonte possua associações com outras fontes.
+       * - opcoes.acoes (Opcional) As ações aceitas por esta fonte.
+       *
+       * - opcoes.seForRealizarPaginacao (Opcional) Caso seja necessário
+       * habilitar a paginação para determinada fonte.
+       *
+       * - opcoes.seForRecarregarInstancias (Opcional)
+       *
+       * - opcoes.incluir (Opcional) Vamos incluir mais alguns modelos?
+       *
+       * - opcoes.excluirAtributos (Opcional) Os atributos não necessários e que
+       * devem ser excluidos.
+       *
+       * - opcoes.busca.parametro (Opcional) O parametro utilizado para a busca.
+       *
+       * - opcoes.sorteio.parametro (Opcional) O parametro utilizado para
+       * sorteio.
+       *
+       * - opcoes.modelo (Obrigatório) Um modelo do Sequelize.
+       *
+       * - opcoes.estagiosFinais (Opcional) Os estágio de determinada fonte.
+       *
+       * - opcoes.metodoDeAtualizacao (Opcional mas recomendado) Qual será o
+       * método para atualização? put, post ou patch?
+       *
+       * - opcoes.sePossuiAssociacoes (Opcional) Caso a fonte possua associações
+       * com outras fontes.
        *
        * @Veja https://github.com/umdez/restificando/blob/master/docs/aConfiguracao.md
        */
@@ -139,8 +160,8 @@ ServicoRest.prototype.carregarNossoServicoRest = function () {
 
 /* @Método iniciar(). 
  *
- * Realiza o inicio do serviço REST Restificando e logo em seguida carrega o serviço REST
- * para cada um dos modelos do banco de dados. 
+ * Realiza o inicio do serviço REST Restificando e logo em seguida carrega o
+ * serviço REST para cada um dos modelos do banco de dados.
  *
  * @Retorna {Promessa} Promessa de recusa ou de deliberação. 
  */

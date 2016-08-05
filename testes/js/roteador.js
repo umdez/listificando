@@ -1,5 +1,3 @@
-'use strict';
-
 /*******************************************************************
  * Listificando é de (C) propriedade da Devowly Sistemas 2015-2016 *
  *                 https://github.com/devowly                      *
@@ -10,7 +8,8 @@
  * Versão atual 0.0.2-Beta
  */
 
-/* Aqui vamos adicionar as caracteristicas de trabalhar com as rotas, Carregar os arquivos de visão etc.  
+/* Aqui vamos adicionar as caracteristicas de trabalhar com as rotas, Carregar
+ * os arquivos de visão etc.  
  */
  
 define([
@@ -24,6 +23,7 @@ define([
 , _
 , VisaoBase
 ) {
+  'use strict';
   
   /* @Roteador SitioRoteador().
    *
@@ -32,7 +32,7 @@ define([
    */
   var SitioRoteador = Backbone.Router.extend({
     
-    /* @Propriedade {Objeto} [routes] Contêm as nossas rotas. 
+    /* @Propriedade {Objeto} [routes] Contêm as nossas rotas.
      */
     routes: {
       '':            'inicio'
@@ -40,7 +40,7 @@ define([
     , ':modulo/:id': 'asRotasDeDoisNiveis'
     },
     
-    /* @Construtor initialize(). Aqui realizamos o inicio do nosso roteador. 
+    /* @Construtor initialize(). Aqui realizamos o inicio do nosso roteador.
      */
     initialize: function () {
       
@@ -53,13 +53,15 @@ define([
       
     },
     
-    /* @Método asRotasDeUmNivel(). Esta é a rota chamada quando o usuário não especificar um id.
+    /* @Método asRotasDeUmNivel(). Esta é a rota chamada quando o usuário não
+     * especificar um id.
      */
     asRotasDeUmNivel: function(modulo){
       
     },
 
-    /* @Método asRotasDeDoisNiveis(). Esta é a rota chamada quando o usuário informar um id.
+    /* @Método asRotasDeDoisNiveis(). Esta é a rota chamada quando o usuário
+     * informar um id.
      */
     asRotasDeDoisNiveis: function(modulo, id){
       
@@ -67,7 +69,8 @@ define([
     
   });
   
-  /* @Função inicializar(). Responsável iniciar o nosso roteador e o histório de rotas.
+  /* @Função inicializar(). Responsável por iniciar o nosso roteador e o
+   * histório de rotas.
    */
   var inicializar = function() {
     

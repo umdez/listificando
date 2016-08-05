@@ -23,6 +23,7 @@ var sequelize = require('sequelize');
 var registrador = require('./fonte/nucleo/registrador')('iniciar');  // Carregamos o nosso registrador
 var ambiente = require('./configuracao/ambiente');  // Carregador das variaveis do ambiente
 var entradas = require('./configuracao/entradas');  // Carregador das entradas na linha de comando
+var obrigatorios = require('./configuracao/obrigatorios');
 
 // Aqui nós iniciamos as variaveis do ambiente.
 ambiente.iniciar(configuracao);
@@ -33,19 +34,22 @@ entradas.iniciar(configuracao, pastaDeConfiguracaoPadrao);
 // Aqui carregamos o arquivo de configuração padrão.
 configuracao.defaults(pastaDeConfiguracaoPadrao);
 
-/* Carregamos assincronamente a nossa configuração e prosseguimos com a inicialização dos nossos serviços.
+/* Carregamos assincronamente a nossa configuração e prosseguimos com a
+ * inicialização dos nossos serviços.
  *
  * @Parametro {Objeto} [args] Argumento passados
  * @Parametro {Objeto} [opcs] As opções dos argumentos.
  */
 configuracao.load(function(args, opcs) {
 
-  // Armazenamos aqui o endereço e nome do arquivo de configuração por meio dos argumentos informados.
+  // Armazenamos aqui o endereço e nome do arquivo de configuração por meio dos
+  // argumentos informados.
   if(args.length > 0) {
     opcs.ARQUIVO_DE_CONFIGURACAO = args[args.length - 1];
   }
 
-  // Faz a união ou substituição da configuração padrão com a configuração informada.
+  // Faz a união ou substituição da configuração padrão com a configuração
+  // informada.
   if(opcs.ARQUIVO_DE_CONFIGURACAO !== pastaDeConfiguracaoPadrao) {
     configuracao.merge(require(opcs.ARQUIVO_DE_CONFIGURACAO));
   }
@@ -59,12 +63,14 @@ configuracao.load(function(args, opcs) {
   // Nossa configuração do CORS.
   var confDoCors = configuracao.servidor.cors;
   
-  // Aqui temos as origens permitidas no nosso serviço CORS. Lembre-se que iremos oferecer dois tipos de conexões (http e https).
+  // Aqui temos as origens permitidas no nosso serviço CORS. Lembre-se que
+  // iremos oferecer dois tipos de conexões (http e https).
   var listaDasOrigensPermitidas = confDoCors.origem;
 
-  /* Iremos separar as preocupações do nosso projeto, para isso nós iremos oferecer os serviços deste servidor para
-   * a parte da visão. Assim iremos oferecer aceitação de conexões e requisições dos dominios de origem permitidos 
-   * utilizando o módulo CORS. 
+  /* Iremos separar as preocupações do nosso projeto, para isso nós iremos
+   * oferecer os serviços deste servidor para a parte da visão. Assim iremos
+   * oferecer aceitação de conexões e requisições dos dominios de origem
+   * permitidos utilizando o módulo CORS.
    * @Veja https://www.npmjs.com/package/cors
    */
   var cors = require('cors');
@@ -75,20 +81,19 @@ configuracao.load(function(args, opcs) {
     }  
   , methods:  confDoCors.metodos // Métodos aceitos.
   , allowedHeaders: confDoCors.cabecalhosAceitos
-  , exposedHeaders: confDoCors.cabecalhosExpostos  // Aqui teremos os cabeçalhos *expostos* para as requisições ao servidor HTTP. @Veja http://stackoverflow.com/a/15444439/4187180
+  , exposedHeaders: confDoCors.cabecalhosExpostos  
   , credentials: confDoCors.seUsarCredenciais
   }));
   
-  /* Aqui temos a nossa chave e certificado. Foi utilizado a ferramenta openssl provida pelo git. 
-   * O comando para cria-los: openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout privatekey.key -out certificate.crt
-   * @Veja https://stackoverflow.com/questions/2355568/create-a-openssl-certificate-on-windows
-   */
+  // Aqui temos a nossa chave e certificado para nosso servidor https.
   var chavePrivada  = sistemaDeArquivo.readFileSync('./certificados/' + confDoServidor.certificados.chavePrivada, 'utf8');
   var certificado = sistemaDeArquivo.readFileSync('./certificados/' + confDoServidor.certificados.certificado, 'utf8');
   var credenciais = {key: chavePrivada, cert: certificado};
   
-  // Utilizamos o bodyParser para receber requisições POST ou PUT.
-  // Lembre-se de manter o limit do body em 200kb para nos precaver dos ataques de negação de serviço.
+  /* Utilizamos o bodyParser para receber requisições POST ou PUT. Lembre-se de
+   * manter o limit do body em 200kb para nos precaver dos ataques de negação de
+   * serviço.
+   */
   var bodyParser = require('body-parser');
   aplicativo.use(bodyParser.json({limit: confDoServidor.limite}));
   aplicativo.use(bodyParser.urlencoded({limit: confDoServidor.limite, extended: false}));
@@ -122,7 +127,8 @@ configuracao.load(function(args, opcs) {
   // Iremos servir os arquivos do diretorio "testes/incluir/estilos"
   aplicativo.use('/estilos', express.static(pasta.join(__dirname, 'testes/incluir/estilos'))); 
   
-  // Chamamos o arquivo principal, ele vai carregar os outros arquivos principais do servidor.
+  // Chamamos o arquivo principal, ele vai carregar os outros arquivos
+  // principais do servidor.
   var principal = require('./fonte/iniciador/principal');
   
   principal.prosseguir(configuracao, aplicativo, function() {

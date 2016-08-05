@@ -1,5 +1,3 @@
-'use strict';
- 
 /*******************************************************************
  * Listificando é de (C) propriedade da Devowly Sistemas 2015-2016 *
  *                 https://github.com/devowly                      *
@@ -15,6 +13,7 @@ define([
 ], function(
   Roteador
 ) {
+  'use strict';
   
   /* @Função inicializar(). Responsável por inicializar o nosso roteador.
    */

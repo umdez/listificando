@@ -1,6 +1,6 @@
 'use strict';
 
-/* Suporte para vis„o base do sistema. */
+/* Suporte para vis√£o base do sistema. */
 
 define([
   'jquery'

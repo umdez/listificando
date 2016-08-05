@@ -13,14 +13,21 @@
 /* Arquivo de configuração da biblioteca require.js.
  */
 
-/* O require.js nos habilita a realizar uma configuração dos atalhos dos modulos.
- * Também é responsável pelo carregamento ordenado dos módulos utilizando dependencias.
+/* O require.js nos habilita a realizar uma configuração dos atalhos dos
+ * modulos. Também é responsável pelo carregamento ordenado dos módulos
+ * utilizando dependencias.
  *
- * @Diretiva {baseUrl}      (Obrigatório) O caminho base onde os scripts serão requisitados.
- * @Diretiva {waitSeconds}  (Opcional mas Recomendado) Limite em segundos do total de segundos que serão 
- *                                                     esperados para o carregamento total de determinado script.
- * @Diretiva {paths}        (Opcional) O caminho onde determinado módulo se encontra.
- * @Diretiva {shim}         (Opcional) Realizamos o carregamento de scripts e suas dependencias que não são compativeis com o padrão AMD.
+ * @Diretiva {baseUrl} (Obrigatório) O caminho base onde os scripts serão
+ * requisitados.
+ * 
+ * @Diretiva {waitSeconds} (Opcional mas Recomendado) Limite em segundos do
+ * total de segundos que serão esperados para o carregamento total de
+ * determinado script.
+ * 
+ * @Diretiva {paths} (Opcional) O caminho onde determinado módulo se encontra.
+ * 
+ * @Diretiva {shim} (Opcional) Realizamos o carregamento de scripts e suas
+ * dependencias que não são compativeis com o padrão AMD.
  */
 require.config({
   
@@ -40,8 +47,8 @@ require.config({
   , 'domready': '/bibliotecas/domready'
   },
   
-  // Lembre-se: Somente usar o shim para aqueles scripts que não são AMD. 
-  // Ele não vai funcionar corretamente se informado um script AMD.
+  // Lembre-se: Somente usar o shim para aqueles scripts que não são AMD. Ele
+  // não vai funcionar corretamente se informado um script AMD.
   shim: {
     
     'backbone': {
