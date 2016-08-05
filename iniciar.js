@@ -12,7 +12,6 @@
  
 var sistemaDeArquivo = require('fs');
 var pasta = require('path');
-var configuracao = require('jsconfig');
 var pastaDeConfiguracaoPadrao = pasta.join(__dirname, '/configuracao/configuracao.js');
 var http = require('http');
 var https = require('https');
@@ -21,38 +20,9 @@ var restificando = require('restificando');
 var express = require('express');
 var sequelize = require('sequelize');
 var registrador = require('./fonte/nucleo/registrador')('iniciar');  // Carregamos o nosso registrador
-var ambiente = require('./configuracao/ambiente');  // Carregador das variaveis do ambiente
-var entradas = require('./configuracao/entradas');  // Carregador das entradas na linha de comando
-var obrigatorios = require('./configuracao/obrigatorios');
+var configurado = require('configurado');
 
-// Aqui nós iniciamos as variaveis do ambiente.
-ambiente.iniciar(configuracao);
-
-// Aqui nós iniciamos o suporte as entradas da linha de comando.
-entradas.iniciar(configuracao, pastaDeConfiguracaoPadrao);
-
-// Aqui carregamos o arquivo de configuração padrão.
-configuracao.defaults(pastaDeConfiguracaoPadrao);
-
-/* Carregamos assincronamente a nossa configuração e prosseguimos com a
- * inicialização dos nossos serviços.
- *
- * @Parametro {Objeto} [args] Argumento passados
- * @Parametro {Objeto} [opcs] As opções dos argumentos.
- */
-configuracao.load(function(args, opcs) {
-
-  // Armazenamos aqui o endereço e nome do arquivo de configuração por meio dos
-  // argumentos informados.
-  if(args.length > 0) {
-    opcs.ARQUIVO_DE_CONFIGURACAO = args[args.length - 1];
-  }
-
-  // Faz a união ou substituição da configuração padrão com a configuração
-  // informada.
-  if(opcs.ARQUIVO_DE_CONFIGURACAO !== pastaDeConfiguracaoPadrao) {
-    configuracao.merge(require(opcs.ARQUIVO_DE_CONFIGURACAO));
-  }
+configurado.iniciar(pastaDeConfiguracaoPadrao, registrador, function(configuracao) {
   
   // Iniciamos o servidor express
   var aplicativo = express();

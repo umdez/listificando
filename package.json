@@ -9,6 +9,7 @@
     "bcrypt-nodejs": "0.0.3",
     "node-uuid": "1.4.2",
     "restificando": "umdez/restificando",
+    "configurado": "umdez/configurado",
     "sequelize": "^3.5.1",
     "express": "^4.13.3",
     "bluebird": "3.0.0",
@@ -19,8 +20,7 @@
     "jsconfig": "0.2.0",
     "morgan": "1.6.1",
     "mysql": "2.9.0",
-    "lodash": "^3.10.1",
-    "lodash-deep": "2.0.0"
+    "lodash": "^3.10.1"
   },
   "devDependencies": {
     

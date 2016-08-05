@@ -15,7 +15,7 @@ module.exports = function (database, DataTypes) {
   }, {
     
     associar: function (modelos) {
-      // Cada projeto possui uma equipe responsável, por isso, adicionamos uma 
+      // Cada projeto possui uma equipe responsável, por isso, adicionamos uma
       // chave estrangeira (projeto_id) no modelo de equipe.
       modelos.Projetos.hasOne(modelos.Equipes, { foreignKey: 'projeto_id' }); 
     },

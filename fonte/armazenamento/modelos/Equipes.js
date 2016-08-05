@@ -18,8 +18,10 @@ module.exports = function (database, DataTypes) {
   }, {
     
     associar: function (modelos) {
-      // Cada uma das equipes possuirá um time de colaboradores responsáveis, 
-      // por isso, nós adicionaremos uma chave estrangeira (equipe_id) no modelo colaborador.
+      /* Cada uma das equipes possuirá um time de colaboradores responsáveis,
+       * por isso, nós adicionaremos uma chave estrangeira (equipe_id) no modelo
+       * colaborador.
+       */ 
       modelos.Equipes.hasMany(modelos.Colaboradores, { foreignKey: 'equipe_id' }); 
     },
     underscored: true, // Lembre-se de que utilizamos o padrão snake_case
