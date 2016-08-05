@@ -21,8 +21,9 @@ var express = require('express');
 var sequelize = require('sequelize');
 var registrador = require('./fonte/nucleo/registrador')('iniciar');  // Carregamos o nosso registrador
 var configurado = require('configurado');
+var registradorDoConfigurado = require('./fonte/nucleo/registrador')('configurado');
 
-configurado.iniciar(pastaDeConfiguracaoPadrao, registrador, function(configuracao) {
+configurado.iniciar(pastaDeConfiguracaoPadrao, registradorDoConfigurado, function(configuracao) {
   
   // Iniciamos o servidor express
   var aplicativo = express();
