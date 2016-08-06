@@ -23,6 +23,9 @@ var config = {};
  *
  * - armazenamento.usuario  (Obrigatório) O nome do usuário do banco. Exceto
  * para o SQLite.
+ * 
+ * - armazenamento.seForForcarCriacaoDeNovasTabelas (Opcional) Realiza a remoção
+ * das tabelas existentes e as cria novamente.
  */
 config.armazenamento = {
   "dialeto": "mysql"                
@@ -33,7 +36,8 @@ config.armazenamento = {
 , "maxDeConexoes": 1                
 , "maxTempInativo": 30              
 , "endereco": "127.0.0.1"           
-, "porta": 3306                      
+, "porta": 3306      
+, "seForForcarCriacaoDeNovasTabelas": false                
 };
 
 /* @Diretiva {servidor} O nosso servidor http.

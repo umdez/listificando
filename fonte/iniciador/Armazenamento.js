@@ -33,11 +33,15 @@ CarregaArmazenamento.prototype.carregar = function (configuracao) {
   /* @Propriedade {Objeto} [minhaConfiguracao] As nossas configurações. */
   var minhaConfiguracao = configuracao.armazenamento;
 
+  /* @Propriedade {Objeto} [asOpcoesDeSincronizacao] As opções de sincronização
+  */
+  var asOpcoesDeSincronizacao = { "force": minhaConfiguracao.seForForcarCriacaoDeNovasTabelas };
+
   /* @Propriedade {Objeto} [armazenamento] O módulo de armazenamento. */
   var armazenamento = new Armazenamento(minhaConfiguracao);
 
   // Inicia sequelize e retorna promessa
-  return armazenamento.iniciar();
+  return armazenamento.iniciar(asOpcoesDeSincronizacao);
 
 };
 

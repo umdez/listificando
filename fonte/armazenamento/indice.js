@@ -104,14 +104,14 @@ Armazenamento.prototype.carregarOsModelos = function () {
  * - force {Boleano} (Opcional) Se for verdadeiro (true) irá primeiramente
  * remover (drop) as tabelas antes de as criar novamente.
  *
- * @Parametro {Objeto} [opcoesDeSincronizacao] Configura as opções de sincronização.
+ * @Parametro {Objeto} [asOpcoesDeSincronizacao] Configura as opções de sincronização.
  * @Retorna {Promessa} Uma promessa de recusa em caso de erro, ou de deliberação se tudo correr bem.
  */
-Armazenamento.prototype.iniciar = function (opcoesDeSincronizacao) {
+Armazenamento.prototype.iniciar = function (asOpcoesDeSincronizacao) {
 
   registrador.debug('Iniciando armazenamento');
 
-  opcoesDeSincronizacao = opcoesDeSincronizacao || {};
+  asOpcoesDeSincronizacao = asOpcoesDeSincronizacao || { "force": false };
   var esteObjeto = this;
 
   return new Promessa(function (deliberar, recusar) {
@@ -165,7 +165,7 @@ Armazenamento.prototype.iniciar = function (opcoesDeSincronizacao) {
     esteObjeto.carregarOsModelos();
 
     // Sincroniza os modelos com o banco de dados.
-    sequelize.sync(opcoesDeSincronizacao).then(function() {
+    sequelize.sync(asOpcoesDeSincronizacao).then(function() {
       deliberar(esteObjeto);
     }).catch(function(erro){
       registrador.error(erro);
