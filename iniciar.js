@@ -16,10 +16,9 @@ var pastaDeConfiguracaoPadrao = pasta.join(__dirname, '/configuracao/configuraca
 var express = require('express');
 var configurado = require('configurado');
 var registrador = require('./fonte/nucleo/registrador')('iniciar');  // Carregamos o nosso registrador
-var registradorDoConfigurado = require('./fonte/nucleo/registrador')('configurado');
 var Expressando = require('expressando');
 
-configurado.iniciar(pastaDeConfiguracaoPadrao, registradorDoConfigurado, function(configuracao) {
+configurado.iniciar(pastaDeConfiguracaoPadrao, function(configuracao) {
   
   // Iniciamos o servidor express
   var aplicativo = express();
