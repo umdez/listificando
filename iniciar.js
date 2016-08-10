@@ -42,22 +42,26 @@ configurado.iniciar(pastaDeConfiguracaoPadrao, function(configuracao) {
   , { "caminho": express.static(pasta.join(__dirname, 'testes/incluir/estilos')), "rota": '/estilos' }
   ];
 
+  // Carregamos aqui o servidor express, o cors e o redirecionamento.
   var expressando = new Expressando({
-    "configuracao": configuracao,
-    "aplicativo": aplicativo,
-    "credenciais": credenciais,
-    "lista": listaDeRotas
-  }, function(objExpressando){ objExpressando.carregar(); });
+    "configuracao": configuracao
+  , "aplicativo": aplicativo
+  , "credenciais": credenciais
+  , "lista": listaDeRotas
+  }, function(objExpressando) { 
+    objExpressando.carregar(); 
+  });
   
   // Chamamos o arquivo principal, ele vai carregar os outros arquivos
   // principais do servidor.
   var principal = require('./fonte/iniciador/principal');
   
+  // Aqui nós prosseguimos com nossos serviços basicos.
   principal.prosseguir(configuracao, aplicativo, function() {
     registrador.debug('Carregando o servidor HTTP e HTTPS.');
-    expressando.escutar(function(){
-      // pronto
-    });
+
+    // Iniciamos a escuta por conexões no express.
+    expressando.escutar(function() { });
   });
   
 });
