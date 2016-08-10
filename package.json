@@ -11,6 +11,7 @@
     "restificando": "umdez/restificando",
     "configurado": "umdez/configurado",
     "expressando": "umdez/expressando",
+    "preenchedor": "umdez/preenchedor",
     "sequelize": "^3.5.1",
     "mysql": "2.9.0",
     "express": "^4.13.3",
