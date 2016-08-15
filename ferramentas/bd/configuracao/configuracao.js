@@ -28,15 +28,9 @@ var configuracao = {};
  * das tabelas existentes e as cria novamente.
  */
 configuracao.armazenamento = {
-  "dialeto": "mysql"                
-, "usuario": "leo"                  
+  "usuario": "leo"                  
 , "senha": "montes"                 
-, "database": "database"            
-, "maxDeConsultasConcorrentes": 200 
-, "maxDeConexoes": 1                
-, "maxTempInativo": 30              
-, "endereco": "127.0.0.1"           
-, "porta": 3306      
+, "database": "database"  
 , "seForForcarCriacaoDeNovasTabelas": false                
 };
 

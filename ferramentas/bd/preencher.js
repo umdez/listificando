@@ -10,8 +10,18 @@
  * Versão atual 0.0.1-Beta
  */
 
-var preenchedor = require('preenchedor');
+/* Realizará o preenchimento dos dados para um banco de dados qualquer.
+ * @Veja https://github.com/umdez/preenchedor/blob/master/README.md
+ */
+
+var Preenchedor = require('preenchedor');
 var aConfiguracaoPadrao = require('./configuracao/configuracao.js');
 var dados = require('./dados/indice');
 var modelos = require('./modelos/indice');
 
+var preenchedor = new Preenchedor(aConfiguracaoPadrao, dados, modelos);
+
+preenchedor.conectarAoBanco( function() {
+  // Carregamos aqui os dados.
+  preenchedor.armazenarOsDados();
+});
