@@ -31,14 +31,10 @@ configurado.iniciar(pastaDeConfiguracaoPadrao, function(configuracao) {
   var certificado = sistemaDeArquivo.readFileSync('./certificados/' + confDoServidor.certificados.certificado, 'utf8');
   var credenciais = { key: chavePrivada, cert: certificado };
   
+  // Aqui nós temos as rotas para cada caminho do nosso aplicativo
   var listaDeRotas = [
-    // Iremos servir os arquivos do diretorio "/testes"
     { "caminho": express.static(pasta.join(__dirname, 'testes')), "rota": '/' }
-  
-    // Iremos servir os arquivos do diretorio "testes/incluir/js/bibliotecas"
   , { "caminho": express.static(pasta.join(__dirname, 'testes/incluir/js/bibliotecas')), "rota": '/bibliotecas' }
-  
-    // Iremos servir os arquivos do diretorio "testes/incluir/estilos"
   , { "caminho": express.static(pasta.join(__dirname, 'testes/incluir/estilos')), "rota": '/estilos' }
   ];
 
