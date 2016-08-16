@@ -6,8 +6,6 @@
   "author": "Léo Felippe <leofelippedias@hotmail.com.br>",
   "main": "./iniciar.js",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "node-uuid": "1.4.2",
     "restificando": "umdez/restificando",
     "configurado": "umdez/configurado",
     "expressando": "umdez/expressando",
