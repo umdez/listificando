@@ -3,8 +3,8 @@
 /* @arquivo indice.js
  */
 
-var fs = require('fs'),
-  pasta = require('path');  
+var fs = require('fs');
+var pasta = require('path');  
 
 /* Realiza a leitura dos arquivos com extenção .json desta pasta, 
  * para depois, carregar cada um deles e adicionar cada um dos registros

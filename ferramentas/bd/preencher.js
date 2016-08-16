@@ -16,8 +16,8 @@
 
 var Preenchedor = require('preenchedor');
 var aConfiguracaoPadrao = require('./configuracao/configuracao.js');
-var dados = require('./dados/indice');
 var modelos = require('./modelos/indice');
+var dados = require('./dados/indice');
 
 var preenchedor = new Preenchedor(aConfiguracaoPadrao, dados, modelos);
 
