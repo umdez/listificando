@@ -68,7 +68,7 @@ Projetos.controladoresFuncionais = function(fonte) {
   });
 
   fonte.ler.iniciar.antesQue(function(requisicao, resposta, contexto) {
-    return limiteDeLeituras(requisicao, resposta, contexto);
+    return limiteDeLeituras.Restificando(requisicao, resposta, contexto);
   });
   
   fonte.ler.iniciar.antesQue(function(requisicao, resposta, contexto) {
@@ -81,7 +81,7 @@ Projetos.controladoresFuncionais = function(fonte) {
   });
 
   fonte.listar.iniciar.antesQue(function(requisicao, resposta, contexto) {
-    return limiteDeListagens(requisicao, resposta, contexto);
+    return limiteDeListagens.Restificando(requisicao, resposta, contexto);
   });
 
   fonte.listar.iniciar(function(requisicao, resposta, contexto) {
