@@ -151,6 +151,10 @@ ServicoRest.prototype.carregarNossoServicoRest = function () {
         esteObjeto[fonte.nome].usar(osControladoresUsados);
       }
       
+      if (fonte.controladoresFuncionais) {
+        fonte.controladoresFuncionais(esteObjeto[fonte.nome]);
+      }
+
     } else {
       registrador.debug('Não encontramos o modelo (' + fonte.nome + ') do banco de dados.');
     }
